@@ -4,8 +4,26 @@
     <meta charset="UTF-8">
     <title>unicorns</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
+    <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
 </head>
 <body>
 <h1>unicorns</h1>
+<table style="text-align:left">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+    <tr th:each="unicorn : ${unicorns}">
+        <th><a th:href="'/unicorn' + '?id=' + ${unicorn.id}" th:text="${unicorn.name}"></a></th>
+        <th th:text="${unicorn.price}"></th>
+        <th><img scr="/buttercup.png" /></th>
+        <!--<th><a th:href="'/delete/'+ ${book.id}">Delete Book</a></--th>-->
+    </tr>
+</table>
+<img scr="/buttercup.png" />
 </body>
 </html>

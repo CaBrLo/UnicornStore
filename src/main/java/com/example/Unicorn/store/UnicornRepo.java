@@ -1,8 +1,11 @@
 package com.example.Unicorn.store;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UnicornRepo {
 
     private List<Unicorn> unicorns;
@@ -10,10 +13,10 @@ public class UnicornRepo {
     public UnicornRepo() {
         unicorns = new ArrayList<>();
 
-        unicorns.add(new Unicorn(100000L, "Twilight", 4, Colors.RED, true, true));
-        unicorns.add(new Unicorn(100001L, "Stardust", 1, Colors.WHITE, false, true));
-        unicorns.add(new Unicorn(100002L, "Buttercup", 1, Colors.BLUE, false, false));
-        unicorns.add(new Unicorn(100003L, "Sparkles", 9, Colors.RAINBOW, true, false));
+        unicorns.add(new Unicorn(100000L, "Twilight", 4, Colors.RED, true, true,124232.99));
+        unicorns.add(new Unicorn(100001L, "Stardust", 1, Colors.WHITE, false, true,12563.99));
+        unicorns.add(new Unicorn(100002L, "Buttercup", 1, Colors.BLUE, false, false,712.12));
+        unicorns.add(new Unicorn(100003L, "Sparkles", 9, Colors.RAINBOW, true, false,121232.64));
     }
 
     // get one unicorn
@@ -50,6 +53,7 @@ public class UnicornRepo {
             unicornToEdit.setColor(unicorn.getColor());
             unicornToEdit.setHorn(unicorn.isHorn());
             unicornToEdit.setFlyAble(unicorn.isFlyAble());
+            unicornToEdit.setPrice(unicorn.getPrice());
         }
         return unicorn;
     }
