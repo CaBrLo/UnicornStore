@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
+
 </head>
 <body>
 <h1>Login</h1>
+<form th:action="@{/login}" method="post">
+    Username: <input type="text" name="username">
+    Password: <input type="password" name="password">
+    <input type="submit" value="Log in">
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
+</form>
 </body>
 </html>

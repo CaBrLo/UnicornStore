@@ -8,14 +8,26 @@ public class Unicorn {
     private Colors color;
     private boolean horn;
     private boolean flyAble;
+    private double price;
 
-    public Unicorn(Long id, String name, int age, Colors color, boolean horn, boolean flyAble) {
+
+
+    public Unicorn(Long id, String name, int age, Colors color, boolean horn, boolean flyAble, double price) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.color = color;
         this.horn = horn;
         this.flyAble = flyAble;
+        this.price = price;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Long getId() {

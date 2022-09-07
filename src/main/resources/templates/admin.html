@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Admin sida</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
+    <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
 </head>
 <body>
 <h1>Admin sida</h1>

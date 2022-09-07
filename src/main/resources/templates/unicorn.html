@@ -4,8 +4,40 @@
     <meta charset="UTF-8">
     <title>unicorn</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
+    <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
 </head>
 <body>
 <h1>unicorn</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th th:text="${unicorn.name}"></th>
+    </tr>
+    <tr>
+        <th>Age</th>
+        <th th:text="${unicorn.age}"></th>
+    </tr>
+    <tr>
+        <th>Price</th>
+        <th th:text="${unicorn.price}"></th>
+    </tr>
+    <tr>
+        <th>Color</th>
+        <th th:text="${unicorn.color}"></th>
+    </tr>
+    <tr>
+        <th>isHorn</th>
+        <th th:text="${unicorn.isHorn}"></th>
+    </tr>
+    <tr>
+        <th>canFly</th>
+        <th th:text="${unicorn.isFlyAble}"></th>
+    </tr>
+</table>
+<button type="button">Add to cart
+</button>
 </body>
 </html>
