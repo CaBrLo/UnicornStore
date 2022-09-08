@@ -5,15 +5,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class UnicornController {
     @Autowired
     private UnicornRepo unicornRepo;
+
+    @Autowired
+    private CustomerRepo customerRepo;
+
 
     @GetMapping("/unicorns")
     public String unicorns(Model model) {
@@ -36,18 +44,53 @@ public class UnicornController {
         return "login";
     }
 
+
+
+    /**@PostMapping("/login")
+    public String loginPost(HttpSession session, @RequestParam String username, @RequestParam String password) {
+        for (Customer customer : customerRepo.getCustomers()) {
+            if (username.equals(customer.getUsername()) && password.equals(customer.getPassword()) ){
+                session.setAttribute("username", username);
+                return "profile";
+            }
+        }
+        return "login";
+    }*/
+
     @GetMapping("/admin")
     public String admin() {
         return "admin";
     }
 
-    /*@GetMapping("/unicorn/100001")
-    public String unicorns1(Model model) {
-        List<Unicorn> unicorns = unicornRepo.getUnicorns();
-        model.addAttribute("unicorns", unicorns);
-        return "unicorn";*/
 
+    /**@GetMapping("/profile")
+    public String profile(HttpSession session) {
+        String userName = (String)session.getAttribute("userName");
+        if (userName != null) {
+            return "profile";
+        }
+       return "redirect:/";
+    }*/
+
+    @GetMapping("/profile")
+    public String profile(HttpSession session, HttpServletRequest request) {
+        String username = request.getRemoteUser();
+        for (Customer customer : customerRepo.getCustomers()) {
+            if (customer.getUsername().equals(username)) {
+                session.setAttribute("username", customer.getUsername());
+                session.setAttribute("firstname", customer.getFirstName());
+                session.setAttribute("lastname", customer.getLastName());
+                session.setAttribute("address", customer.getAddress());
+                session.setAttribute("zipCode", customer.getZipCode());
+                session.setAttribute("city", customer.getCity());
+            }
+        }
+        return "profile";
     }
+
+
+
+}
 
 
 

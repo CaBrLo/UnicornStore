@@ -2,14 +2,30 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Profil</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
-    <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout"/>
-    </form>
-</head>
-<body>
-<h1>Profil</h1>
-</body>
-</html>
+    <!--  <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>-->
+    <p th:text="'Logged in as: ' + ${session.username}"></p>
+     <form th:action="@{/logout}" method="post">
+         <input type="submit" value="Logout"/>
+     </form>
+ </head>
+ <body>
+ <h1 th:text="'Hello ' + ${session.username}"></h1>
+
+ <div>
+     <form th:action="@{/saveProfile}" method="post">
+
+         Username: <input type="text" name="username">
+         First name: <input type="text" name="firstName">
+         Last name: <input type="text" name="lastName">
+         Address: <input type="text" name="address">
+         Zip code: <input type="text" name="zipCode">
+         City: <input type="text" name="city">
+
+         <input type="submit" value="save">
+     </form>
+
+ </div>
+ </body>
+ </html>

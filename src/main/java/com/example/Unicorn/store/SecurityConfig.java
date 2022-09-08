@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import javax.servlet.http.HttpSession;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -21,13 +23,15 @@ CustomerRepo customerRepo;
         http
                 .authorizeRequests()
                 .antMatchers("/unicorns").permitAll()
+                .antMatchers("/images/**").permitAll()
+                // images/**
                 //.antMatchers( "/unicorn/{id}").permitAll()
                 .antMatchers( "/unicorn").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/profile", "/cart").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin().defaultSuccessUrl("/profile", true)
                 .loginPage("/login")
                 .permitAll();
     }
