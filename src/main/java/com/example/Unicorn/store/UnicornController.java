@@ -64,12 +64,12 @@ public class UnicornController {
 
         Unicorn unicorn = unicornRepo.getUnicorn(id);
         //session.setAttribute("unicornId", unicorn.getId());
-        int x = 0;
+
         String user = request.getRemoteUser();
         Customer customer = customerRepo.getCustomer(user);
         //Cart cart = new Cart(customer);
         cart.addUnicornToCart(unicorn);
-        x++;
+        int x = cart.unicornCart.size();
         session.setAttribute("unicornCart", cart.unicornCart);
         session.setAttribute("amount", x);
         session.setAttribute("unicornName", unicorn.getName());

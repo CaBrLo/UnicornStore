@@ -17,16 +17,19 @@
     <input type="submit" value="Log in"/>
     </form>
     </div>
+
 </head>
 <body>
 
 <div class="content">
 
-<h1>Unicorns</h1>
-
-
-
-
+    <img class="Contact" th:src="'images/LOGO.png'">
+    <br>
+    <br>
+    <br>
+    <br>
+<br>
+    <br>
     <div th:each="unicorn : ${unicorns}">
         <div><img class="smallPicture" th:src="'images/' + ${unicorn.name} + '.png'"></div>
         <div class=""><a th:href="'/unicorn' + '?id=' + ${unicorn.id}" th:text="${unicorn.name}"></a></div>
@@ -36,7 +39,8 @@
 
 
     </div>
-
+    <h2>Cant find what you are looking for?</h2>
+    <img class="Contact" th:src="'images/ContactUs.png'">
 </div>
 </body>
 </html>
