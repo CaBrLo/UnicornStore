@@ -24,6 +24,7 @@ CustomerRepo customerRepo;
                 .authorizeRequests()
                 .antMatchers("/unicorns").permitAll()
                 .antMatchers("/images/**").permitAll()
+                .antMatchers("/style.css").permitAll()
                 // images/**
                 //.antMatchers( "/unicorn/{id}").permitAll()
                 .antMatchers( "/unicorn").permitAll()

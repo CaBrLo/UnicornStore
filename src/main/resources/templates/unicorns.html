@@ -21,10 +21,10 @@
     <tr th:each="unicorn : ${unicorns}">
         <th><a th:href="'/unicorn' + '?id=' + ${unicorn.id}" th:text="${unicorn.name}"></a></th>
         <th th:text="${unicorn.price}"></th>
-        <th><img scr="../static/images/buttercup.png"></th>
+        <th><img class="smallPicture" th:src="'images/' + ${unicorn.name} + '.png'"></th>
         <!--<th><a th:href="'/delete/'+ ${book.id}">Delete Book</a></--th>-->
     </tr>
 </table>
-<img scr="../static/images/buttercup.png">
+
 </body>
 </html>
