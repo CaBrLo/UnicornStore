@@ -58,11 +58,12 @@ public class UnicornController {
         if (request.getRemoteUser() == null) {
             return "login";
         }
-        Unicorn unicorn = (Unicorn) model.getAttribute("unicorn");
+        //Unicorn unicorn = (Unicorn) model.getAttribute("unicorn");
         //Unicorn unicorn1 = unicornRepo.getUnicorn(model.getAttribute("unicorn"));
 
-        /**Unicorn unicorn = unicornRepo.getUnicorn(id);
-        session.setAttribute("unicornId", unicorn.getId());*/
+
+        Unicorn unicorn = unicornRepo.getUnicorn(id);
+        //session.setAttribute("unicornId", unicorn.getId());
         int x = 0;
         String user = request.getRemoteUser();
         Customer customer = customerRepo.getCustomer(user);
@@ -71,13 +72,15 @@ public class UnicornController {
         x++;
         session.setAttribute("unicornCart", cart.unicornCart);
         session.setAttribute("amount", x);
-        //String idString = Long.toString(id);
-        //String link = "unicorn" + "?id=" + idString;
+        session.setAttribute("unicornName", unicorn.getName());
         return "unicornAdded";
     }
 
     @GetMapping("/unicornAdded")
-        public String unicornAdded() {
+        public String unicornAdded(Model model, HttpSession session) {
+        Unicorn unicorn = (Unicorn) model.getAttribute("unicorn");
+        //session.setAttribute("unicornName", unicorn.getName());
+
         return "unicornAdded";
     }
 
@@ -93,7 +96,7 @@ public class UnicornController {
 
 
 
-    /**@PostMapping("/login")
+    /*@PostMapping("/login")
     public String loginPost(HttpSession session, @RequestParam String username, @RequestParam String password) {
         for (Customer customer : customerRepo.getCustomers()) {
             if (username.equals(customer.getUsername()) && password.equals(customer.getPassword()) ){

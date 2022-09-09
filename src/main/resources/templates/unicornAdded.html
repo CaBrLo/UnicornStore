@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
 </head>
 <body>
-Unicorn added!
-<br>
 <form action="http://localhost:8080/unicorns">
     <input type="submit" value="Go back" />
 </form>
+
+<div class="content">
+    <div>
+
+    <h1 th:text="${session.unicornName} + ' added to cart!'"></h1>
+        <img class="smallPicture" th:src="'images/' + ${session.unicornName} + '.png'">
+
+    <br>
+    </div>
+</div>
 </body>
 </html>

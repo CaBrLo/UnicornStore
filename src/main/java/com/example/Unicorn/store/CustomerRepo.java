@@ -18,7 +18,7 @@ public class CustomerRepo {
                 "Mickelson", "Repslagargatan 3B", "97321", "Luleo"));
         customers.add(new Customer("alvisen", "99fge68", "cool@outlook.com", "Alva",
                 "Storm", "Nordostpassagen 51", "41311", "Goteborg"));
-        customers.add(new Customer("carro_91", "66dee89", "carro_91@hotmail.com", "Caroline",
+        customers.add(new Customer("carro_91", "123", "carro_91@hotmail.com", "Caroline",
                 "Brander Lof", "Daltorpsgatan 52", "41273", "Goteborg"));
     }
 

@@ -28,6 +28,7 @@ CustomerRepo customerRepo;
                 // images/**
                 //.antMatchers( "/unicorn/{id}").permitAll()
                 .antMatchers( "/unicorn").permitAll()
+                .antMatchers( "/unicornAdded").permitAll()
                 .antMatchers("/cart").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/profile", "/cart").hasRole("USER")
