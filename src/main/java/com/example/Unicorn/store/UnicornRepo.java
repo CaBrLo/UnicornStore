@@ -34,6 +34,10 @@ public class UnicornRepo {
         return unicorns;
     }
 
+    public int unicornsInStore() {
+        return unicorns.size();
+    }
+
 
     // add a unicorn
     public Unicorn addUnicorn(Unicorn unicorn) {

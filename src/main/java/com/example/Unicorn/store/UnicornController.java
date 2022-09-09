@@ -39,6 +39,14 @@ public class UnicornController {
         return "unicorn";
     }
 
+    @PostMapping("/unicorn")
+    public String unicornPost(HttpSession session, Long id) {
+        Unicorn unicorn = unicornRepo.getUnicorn(id);
+        session.setAttribute("unicornId", unicorn.getId());
+
+        return "unicorn";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -87,6 +95,8 @@ public class UnicornController {
         }
         return "profile";
     }
+
+
 
 
 

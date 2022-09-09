@@ -10,6 +10,7 @@ public class Customer {
     private String address;
     private String zipCode;
     private String city;
+    private Cart cart;
 
     public Customer(String username, String password, String email, String firstName, String lastName, String address, String zipCode, String city) {
         this.username = username;
