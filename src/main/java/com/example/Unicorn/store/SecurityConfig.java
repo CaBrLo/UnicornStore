@@ -28,11 +28,12 @@ CustomerRepo customerRepo;
                 // images/**
                 //.antMatchers( "/unicorn/{id}").permitAll()
                 .antMatchers( "/unicorn").permitAll()
+                .antMatchers("/cart").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/profile", "/cart").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().defaultSuccessUrl("/profile", true)
+                .formLogin().defaultSuccessUrl("/unicorns", true)
                 .loginPage("/login")
                 .permitAll();
     }

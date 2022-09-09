@@ -5,13 +5,32 @@
     <title>unicorn</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
     <!-- <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p> -->
-    <p th:text="'Logged in as: ' + ${session.username}"></p>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout"/>
-    </form>
+    <div th:if="${session.username} != null">
+        <p th:text="'Logged in as: ' + ${session.username}"></p>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+        <p th:text="'Amount in cart: ' + ${session.amount}"></p>
+    </div>
+    <div th:if="${session.username} == null">
+        <form th:action="@{/login}" method="post">
+            <input type="submit" value="Log in"/>
+        </form>
+    </div>
 </head>
 <body>
+<br>
+
+<form action="http://localhost:8080/unicorns">
+    <input type="submit" value="Go back" />
+</form>
+
+<div class="content">
+
 <h1>unicorn</h1>
+
+<img class="smallPicture" th:src="'images/' + ${unicorn.name} + '.png'">
+
 <table>
     <tr>
         <th>Name</th>
@@ -23,7 +42,7 @@
     </tr>
     <tr>
         <th>Price</th>
-        <th th:text="${unicorn.price}"></th>
+        <th th:text="'$' + ${unicorn.price}"></th>
     </tr>
     <tr>
         <th>Color</th>
@@ -38,7 +57,16 @@
         <th th:text="${unicorn.isFlyAble}"></th>
     </tr>
 </table>
-<button type="button">Add to cart
-</button>
+
+    <!-- <button type="button">Add to cart</button>-->
+
+
+<form th:action="@{'/unicorn' + '?id=' + ${unicorn.id}}" method="post">
+
+    <input type="submit" value="Add to cart">
+</form>
+
+</div>
+
 </body>
 </html>

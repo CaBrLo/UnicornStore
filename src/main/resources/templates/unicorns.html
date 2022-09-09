@@ -5,12 +5,46 @@
     <title>unicorns</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
     <!-- <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>-->
+    <div th:if="${session.username} != null">
     <p th:text="'Logged in as: ' + ${session.username}"></p>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout"/>
     </form>
+    <p th:text="'Amount in cart: ' + ${session.amount}"></p>
+    </div>
+    <div th:if="${session.username} == null">
+        <form th:action="@{/login}" method="post">
+    <input type="submit" value="Log in"/>
+    </form>
+    </div>
 </head>
 <body>
+
+<div class="content">
+
+<h1>Unicorns</h1>
+
+
+
+
+    <div th:each="unicorn : ${unicorns}">
+        <div><img class="smallPicture" th:src="'images/' + ${unicorn.name} + '.png'"></div>
+        <div class=""><a th:href="'/unicorn' + '?id=' + ${unicorn.id}" th:text="${unicorn.name}"></a></div>
+        <div th:text="'$' + ${unicorn.price}"></div>
+        <br>
+        <br>
+
+
+    </div>
+
+</div>
+</body>
+</html>
+
+
+<!--
+<div class="content">
+
 <h1>unicorns</h1>
 <table style="text-align:left">
     <tr>
@@ -22,9 +56,10 @@
         <th><a th:href="'/unicorn' + '?id=' + ${unicorn.id}" th:text="${unicorn.name}"></a></th>
         <th th:text="${unicorn.price}"></th>
         <th><img class="smallPicture" th:src="'images/' + ${unicorn.name} + '.png'"></th>
-        <!--<th><a th:href="'/delete/'+ ${book.id}">Delete Book</a></--th>-->
+
     </tr>
 </table>
+</div>
 
-</body>
-</html>
+
+-->

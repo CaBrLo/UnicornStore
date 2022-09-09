@@ -22,9 +22,23 @@ public class UnicornController {
     @Autowired
     private CustomerRepo customerRepo;
 
+    @Autowired
+    private Cart cart;
+
 
     @GetMapping("/unicorns")
-    public String unicorns(Model model) {
+    public String unicorns(Model model, HttpSession session, HttpServletRequest request) {
+        String username = request.getRemoteUser();
+        for (Customer customer : customerRepo.getCustomers()) {
+            if (customer.getUsername().equals(username)) {
+                session.setAttribute("username", customer.getUsername());
+                session.setAttribute("firstname", customer.getFirstName());
+                session.setAttribute("lastname", customer.getLastName());
+                session.setAttribute("address", customer.getAddress());
+                session.setAttribute("zipCode", customer.getZipCode());
+                session.setAttribute("city", customer.getCity());
+            }
+        }
         List<Unicorn> unicorns = unicornRepo.getUnicorns();
         model.addAttribute("unicorns", unicorns);
         return "unicorns";
@@ -32,7 +46,7 @@ public class UnicornController {
 
     @GetMapping("/unicorn")
     public String unicorn(Model model, @RequestParam( value = "id",required = false,defaultValue = "100000")Long id) {
-        Unicorn unicorn = unicornRepo.getUnicorn(id); // todo replace with call GET /book/{id}
+        Unicorn unicorn = unicornRepo.getUnicorn(id); //
         //Book book = restTemplate.getForObject("http://localhost:8080/book/" + id, Book.class);
         model.addAttribute("unicorn", unicorn);
 
@@ -40,11 +54,36 @@ public class UnicornController {
     }
 
     @PostMapping("/unicorn")
-    public String unicornPost(HttpSession session, Long id) {
-        Unicorn unicorn = unicornRepo.getUnicorn(id);
-        session.setAttribute("unicornId", unicorn.getId());
+    public String unicornPost(Model model, HttpSession session, @RequestParam(value = "id") Long id, HttpServletRequest request) {
+        if (request.getRemoteUser() == null) {
+            return "login";
+        }
+        Unicorn unicorn = (Unicorn) model.getAttribute("unicorn");
+        //Unicorn unicorn1 = unicornRepo.getUnicorn(model.getAttribute("unicorn"));
 
-        return "unicorn";
+        /**Unicorn unicorn = unicornRepo.getUnicorn(id);
+        session.setAttribute("unicornId", unicorn.getId());*/
+        int x = 0;
+        String user = request.getRemoteUser();
+        Customer customer = customerRepo.getCustomer(user);
+        //Cart cart = new Cart(customer);
+        cart.addUnicornToCart(unicorn);
+        x++;
+        session.setAttribute("unicornCart", cart.unicornCart);
+        session.setAttribute("amount", x);
+        //String idString = Long.toString(id);
+        //String link = "unicorn" + "?id=" + idString;
+        return "unicornAdded";
+    }
+
+    @GetMapping("/unicornAdded")
+        public String unicornAdded() {
+        return "unicornAdded";
+    }
+
+    @GetMapping("/cart")
+    public String cart() {
+        return "cart";
     }
 
     @GetMapping("/login")
@@ -71,14 +110,7 @@ public class UnicornController {
     }
 
 
-    /**@GetMapping("/profile")
-    public String profile(HttpSession session) {
-        String userName = (String)session.getAttribute("userName");
-        if (userName != null) {
-            return "profile";
-        }
-       return "redirect:/";
-    }*/
+
 
     @GetMapping("/profile")
     public String profile(HttpSession session, HttpServletRequest request) {

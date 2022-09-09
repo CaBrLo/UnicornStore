@@ -8,4 +8,11 @@ color: blue;
 max-width: 80%;
 }
 
+.content {
+  max-width: 500px;
+  margin: auto;
+}
+
+
+
 
