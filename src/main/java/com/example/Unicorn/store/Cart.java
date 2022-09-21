@@ -2,10 +2,12 @@ package com.example.Unicorn.store;
 
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+//@Entity
 public class Cart {
     //Customer customer;
     //Unicorn unicorn;
@@ -25,7 +27,7 @@ public class Cart {
         //this.customer = customer;
     //}
 
-    /**public Unicorn getUnicorn() {
+    /*public Unicorn getUnicorn() {
         return unicorn;
     }*/
 

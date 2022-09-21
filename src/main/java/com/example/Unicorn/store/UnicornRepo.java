@@ -13,10 +13,10 @@ public class UnicornRepo {
     public UnicornRepo() {
         unicorns = new ArrayList<>();
 
-        unicorns.add(new Unicorn(100000L, "Twilight", 4, Colors.RED, true, true,124232.99));
+        unicorns.add(new Unicorn(100000L, "Twilight", 4, Colors.RED, true, false,124232.99));
         unicorns.add(new Unicorn(100001L, "Stardust", 1, Colors.WHITE, false, true,12563.99));
-        unicorns.add(new Unicorn(100002L, "Buttercup", 1, Colors.BLUE, false, false,712.12));
-        unicorns.add(new Unicorn(100003L, "Sparkles", 9, Colors.RAINBOW, true, false,121232.64));
+        unicorns.add(new Unicorn(100002L, "Buttercup", 1, Colors.WHITE, false, false,712.12));
+        unicorns.add(new Unicorn(100003L, "Sparkles", 9, Colors.RAINBOW, true, true,121232.64));
     }
 
     // get one unicorn

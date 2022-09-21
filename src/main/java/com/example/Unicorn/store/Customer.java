@@ -1,7 +1,12 @@
 package com.example.Unicorn.store;
 
-public class Customer {
+import javax.persistence.*;
 
+@Entity
+public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String username;
     private String password;
     private String email;
@@ -10,7 +15,12 @@ public class Customer {
     private String address;
     private String zipCode;
     private String city;
-    private Cart cart;
+   /* @OneToOne
+    private Cart cart;*/
+
+    public Customer(){
+
+    }
 
     public Customer(String username, String password, String email, String firstName, String lastName, String address, String zipCode, String city) {
         this.username = username;
@@ -86,6 +96,22 @@ public class Customer {
     public void setCity(String city) {
         this.city = city;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+ /*   public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }*/
 }
 
 

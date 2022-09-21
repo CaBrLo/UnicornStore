@@ -1,7 +1,15 @@
 package com.example.Unicorn.store;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Unicorn {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int age;
@@ -10,7 +18,9 @@ public class Unicorn {
     private boolean flyAble;
     private double price;
 
+    public Unicorn(){
 
+    }
 
     public Unicorn(Long id, String name, int age, Colors color, boolean horn, boolean flyAble, double price) {
         this.id = id;

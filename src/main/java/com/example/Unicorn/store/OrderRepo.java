@@ -5,22 +5,22 @@ import java.util.List;
 
 public class OrderRepo {
 
-    private List<Order> orders = new ArrayList<>();
+    private List<Orders> orders = new ArrayList<>();
 
-    public void addOrder(Order order) {
-        orders.add(order);
+    public void addOrder(Orders orders) {
+        this.orders.add(orders);
     }
 
-    public Order getOrder(Long orderNumber) {
-        for (Order order : orders) {
-            if (orderNumber == order.getOrderNumber()) {
-                return order;
+    public Orders getOrder(Long orderNumber) {
+        for (Orders orders : this.orders) {
+            if (orderNumber == orders.getOrderNumber()) {
+                return orders;
             }
         }
         return null;
     }
 
-    public List<Order> getAllOrders() {
+    public List<Orders> getAllOrders() {
         return orders;
     }
 }

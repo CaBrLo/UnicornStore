@@ -1,12 +1,19 @@
 package com.example.Unicorn.store;
 
-public class Order {
+import javax.persistence.*;
 
+//@Entity
+public class Orders {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderNumber;
+   // @OneToOne
     private Customer customer;
+//    @OneToMany
     private Unicorn unicorn;
 
-    public Order(Long orderNumber, Customer customer, Unicorn unicorn) {
+    public Orders(Long orderNumber, Customer customer, Unicorn unicorn) {
         this.orderNumber = orderNumber;
         this.customer = customer;
         this.unicorn = unicorn;
