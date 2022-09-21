@@ -38,4 +38,13 @@ public class Cart {
         return unicorn;
     }
 
+    public void deleteUnicornFromCart(Long id) {
+        for (Unicorn unicorn : unicornCart) {
+            if (unicorn.getId() == id) {
+                unicornCart.remove(unicorn);
+            }
+        }
+
+    }
+
 }

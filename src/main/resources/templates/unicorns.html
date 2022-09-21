@@ -10,13 +10,17 @@
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout"/>
     </form>
-    <p th:text="'Amount in cart: ' + ${session.amount}"></p>
     </div>
     <div th:if="${session.username} == null">
         <form th:action="@{/login}" method="post">
     <input type="submit" value="Log in"/>
     </form>
     </div>
+    <div class="toCart" th:if="${session.amount} != null">
+        <p th:text="'Amount in cart: ' + ${session.amount}"></p>
+        <a href="/cart">To cart</a>
+    </div>
+
 
 </head>
 <body>

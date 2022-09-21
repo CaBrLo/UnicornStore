@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.dom.DOMCryptoContext;
 import java.util.List;
 
 @Controller
@@ -58,35 +59,50 @@ public class UnicornController {
         if (request.getRemoteUser() == null) {
             return "login";
         }
-        //Unicorn unicorn = (Unicorn) model.getAttribute("unicorn");
-        //Unicorn unicorn1 = unicornRepo.getUnicorn(model.getAttribute("unicorn"));
-
 
         Unicorn unicorn = unicornRepo.getUnicorn(id);
-        //session.setAttribute("unicornId", unicorn.getId());
 
+        //model.addAttribute("unicorn", unicorn);
         String user = request.getRemoteUser();
         Customer customer = customerRepo.getCustomer(user);
-        //Cart cart = new Cart(customer);
         cart.addUnicornToCart(unicorn);
         int x = cart.unicornCart.size();
         session.setAttribute("unicornCart", cart.unicornCart);
         session.setAttribute("amount", x);
         session.setAttribute("unicornName", unicorn.getName());
+        session.setAttribute("unicornId", unicorn.getId());
         return "unicornAdded";
     }
 
     @GetMapping("/unicornAdded")
         public String unicornAdded(Model model, HttpSession session) {
         Unicorn unicorn = (Unicorn) model.getAttribute("unicorn");
-        //session.setAttribute("unicornName", unicorn.getName());
 
         return "unicornAdded";
     }
 
     @GetMapping("/cart")
-    public String cart() {
+    public String cart(HttpServletRequest request, HttpSession session, Model model) {
+        String user = request.getRemoteUser();
+        Customer customer = customerRepo.getCustomer(user);
+        double totalAmount = 0;
+        for (Unicorn unicorn : cart.unicornCart) {
+            totalAmount += unicorn.getPrice();
+        }
+        model.addAttribute("totalAmount", totalAmount);
+
         return "cart";
+    }
+
+    @PostMapping("/cart")
+    public String cartPost(HttpServletRequest request, HttpSession session, Model model) {
+        //Unicorn unicorn = unicornRepo.getUnicorn((Long)session.getAttribute("unicornId"));
+
+        //Unicorn unicorn = unicornRepo.getUnicorn(id);
+        //cart.deleteUnicornFromCart(unicorn.getId());
+
+
+        return "redirect:/cart";
     }
 
     @GetMapping("/login")

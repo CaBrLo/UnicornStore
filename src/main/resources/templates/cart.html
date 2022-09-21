@@ -5,21 +5,26 @@
     <title>cart</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
     <!-- <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>-->
-    <p th:text="${'Logged in as: ' + ${session.userName}"></p>
+    <!-- <p th:text="${'Logged in as: ' + ${session.userName}"></p>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout"/>
-    </form>
+    </form> -->
 </head>
 <body>
 <h1>Cart</h1>
-<!--
-<div class="content">
-    <div th:each="unicorn : ${session.unicornCart}">
-        <p th:text="${unicorn.name}"></p>
-        <br>
-    </div>
-</div>
--->
-
-</body>
-</html>
+<div>
+    <tr th:each="unicorn: ${session.unicornCart}">
+        <td th:text="${unicorn.name}" />
+        <td th:text="${unicorn.price}" />
+        <!--th:object="${unicorn}"  -->
+                <form action="/cart" method="post">
+                    <!-- <input type="hidden" id="id" th:value="${unicorn.id}">-->
+             <input type="submit" value="Delete">
+         </form>
+         <br>
+     </tr>
+     <br>
+     Total amount: <p th:text="${totalAmount}"></p>
+ </div>
+ </body>
+ </html>
