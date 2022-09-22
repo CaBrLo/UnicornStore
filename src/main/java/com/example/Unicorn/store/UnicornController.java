@@ -30,8 +30,9 @@ public class UnicornController {
     @Autowired
     private UnicornRepository unicornRepo;
 
-    @Autowired
+    /*@Autowired
     private Cart cart;
+    */
 
 
     @GetMapping("/unicorns")
@@ -83,6 +84,16 @@ public class UnicornController {
             }
         }
         Customer customer = customerRepo.findById(userId).orElse(null);
+        // Johan har lagt till
+        Cart cart;
+        if (session.getAttribute("cart") == null) {
+            cart = new Cart();
+            session.setAttribute("cart", cart);
+        }
+        else {
+            cart = (Cart) session.getAttribute("cart");
+        }
+
 
         cart.addUnicornToCart(unicorn);
         int cartSize = cart.unicornCart.size();
@@ -113,6 +124,13 @@ public class UnicornController {
         Customer customer = customerRepo.findById(userId).orElse(null);
 
         double totalAmount = 0;
+        // Johan har lagt till
+        Cart cart;
+        if (session.getAttribute("cart") == null) {
+            cart = new Cart();
+        }
+        cart = (Cart) session.getAttribute("cart");
+
         for (Unicorn unicorn : cart.unicornCart) {
             totalAmount += unicorn.getPrice();
         }
@@ -122,11 +140,20 @@ public class UnicornController {
     }
 
     @PostMapping("/cart")
-    public String cartPost(HttpServletRequest request, HttpSession session, Model model) {
-        //Unicorn unicorn = unicornRepo.getUnicorn((Long)session.getAttribute("unicornId"));
+    public String cartPost(HttpServletRequest request, HttpSession session, Model model, @RequestParam(value = "id") Long id) {
 
-        //Unicorn unicorn = unicornRepo.getUnicorn(id);
-        //cart.deleteUnicornFromCart(unicorn.getId());
+        // Johan har lagt till
+        Cart cart;
+        if (session.getAttribute("cart") == null) {
+            cart = new Cart();
+        }
+        cart = (Cart) session.getAttribute("cart");
+        cart.deleteUnicornFromCart(id);
+
+        int cartSize = (int)session.getAttribute("amount");
+        cartSize = cartSize - 1;
+        session.setAttribute("amount", cartSize);
+
 
 
         return "redirect:/cart";

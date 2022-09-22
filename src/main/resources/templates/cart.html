@@ -17,8 +17,8 @@
         <td th:text="${unicorn.name}" />
         <td th:text="${unicorn.price}" />
         <!--th:object="${unicorn}"  -->
-                <form action="/cart" method="post">
-                    <!-- <input type="hidden" id="id" th:value="${unicorn.id}">-->
+                <form th:action="@{'/cart' + '?id=' + ${unicorn.id}}" method="post">
+
              <input type="submit" value="Delete">
          </form>
          <br>
@@ -28,3 +28,7 @@
  </div>
  </body>
  </html>
+
+
+
+<!-- <input type="hidden" th:value="${unicorn.id}">-->
