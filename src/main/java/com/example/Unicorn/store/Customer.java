@@ -17,8 +17,7 @@ public class Customer {
     private String city;
     @OneToOne
     private Orders orders;
-   /* @OneToOne
-    private Cart cart;*/
+
 
     public Customer(){
 

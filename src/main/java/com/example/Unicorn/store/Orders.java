@@ -12,8 +12,7 @@ public class Orders {
     private Customer customer;
 
     private double orderPrice;
-//    @OneToMany
-    //private Unicorn unicorn;
+
 
     public Orders() {
     }
@@ -21,7 +20,7 @@ public class Orders {
     public Orders(Long orderNumber, Customer customer, Unicorn unicorn) {
         this.orderNumber = orderNumber;
         this.customer = customer;
-        //this.unicorn = unicorn;
+
     }
 
     public double getOrderPrice() {

@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <title>cart</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
-    <!-- <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>-->
-    <!-- <p th:text="${'Logged in as: ' + ${session.userName}"></p>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout"/>
-    </form> -->
+
 </head>
 <body>
 <h1>Cart</h1>
@@ -35,7 +31,6 @@
     <tr th:each="unicorn: ${session.unicornCart}">
         <td th:text="${unicorn.name}" />
         <td th:text="'$' + ${unicorn.price}" />
-        <!--th:object="${unicorn}"  -->
                 <form th:action="@{'/cart' + '?id=' + ${unicorn.id}}" method="post">
 
              <input type="submit" value="Delete">
@@ -64,4 +59,3 @@
 
 
 
-<!-- <input type="hidden" th:value="${unicorn.id}">-->

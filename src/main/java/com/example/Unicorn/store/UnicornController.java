@@ -59,7 +59,6 @@ public class UnicornController {
     public String unicorn(Model model, @RequestParam( value = "id",required = false,defaultValue = "100000")Long id) {
         //Unicorn unicorn = unicornRepo.getUnicorn(id);                     //den gamla versionen
         Unicorn unicorn = unicornRepo.findById(id).orElse(null);
-        //Book book = restTemplate.getForObject("http://localhost:8080/book/" + id, Book.class);
         model.addAttribute("unicorn", unicorn);
 
         return "unicorn";
@@ -84,7 +83,7 @@ public class UnicornController {
             }
         }
         Customer customer = customerRepo.findById(userId).orElse(null);
-        // Johan har lagt till
+
         Cart cart;
         if (session.getAttribute("cart") == null) {
             cart = new Cart();
@@ -124,7 +123,7 @@ public class UnicornController {
         Customer customer = customerRepo.findById(userId).orElse(null);
 
         double totalAmount = 0;
-        // Johan har lagt till
+
         Cart cart;
         if (session.getAttribute("cart") == null) {
             cart = new Cart();
@@ -155,18 +154,10 @@ public class UnicornController {
     @PostMapping("/cart")
     public String cartPost(HttpServletRequest request, HttpSession session, Model model, @RequestParam(value = "id") Long id) {
 
-        // Johan har lagt till
-        /*Cart cart;
-        if (session.getAttribute("cart") == null) {
-            cart = new Cart();
-            session.setAttribute("cart", cart);
-        }
-        else {
-            cart = (Cart) session.getAttribute("cart");
-        }*/
+
+
         Cart cart = (Cart) session.getAttribute("cart");
         double totalAmount = (double)session.getAttribute("totalAmount");
-        //double totalAmount = (double) model.getAttribute("totalAmount");
         cart.deleteUnicornFromCart(id);
 
         int cartSize = (int)session.getAttribute("amount");
@@ -194,18 +185,6 @@ public class UnicornController {
         return "login";
     }
 
-
-
-    /*@PostMapping("/login")
-    public String loginPost(HttpSession session, @RequestParam String username, @RequestParam String password) {
-        for (Customer customer : customerRepo.getCustomers()) {
-            if (username.equals(customer.getUsername()) && password.equals(customer.getPassword()) ){
-                session.setAttribute("username", username);
-                return "profile";
-            }
-        }
-        return "login";
-    }*/
 
     @GetMapping("/admin")
     public String admin() {
@@ -260,12 +239,7 @@ public class UnicornController {
         for (int i = 0; i < cart.unicornCart.size(); i++) {
             cart.unicornCart.remove(i);
         }
-        /*for (Unicorn unicorn : cart.unicornCart) {
-            if (cart.unicornCart == null) {
-                break;
-            }
-            cart.unicornCart.remove(unicorn);
-        }*/
+
         int cartSize = (int) session.getAttribute("amount");
         cartSize = 0;
         totalAmount = 0;
@@ -276,9 +250,6 @@ public class UnicornController {
 
         return "checkout";
     }
-
-
-
 
 
 }

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
-    <!--  <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>-->
     <p th:text="'Logged in as: ' + ${session.username}"></p>
      <form th:action="@{/logout}" method="post">
          <input type="submit" value="Logout"/>
@@ -32,21 +31,6 @@
          </form>
 
 
-
- <!-- <div>
-     <form th:action="@{/saveProfile}" method="post">
-
-
-         First name: <input type="text" name="firstName"><br><br><br>
-         Last name: <input type="text" name="lastName"><br><br><br>
-         Address: <input type="text" name="address"><br><br><br>
-         Zip code: <input type="text" name="zipCode"><br><br><br>
-         City: <input type="text" name="city"><br><br><br>
-
-         <input type="submit" value="Save">
-     </form>
-
- </div> -->
  </div>
  </body>
  </html>

@@ -22,7 +22,7 @@ public class CustomerRepo {
                 "Brander Lof", "Daltorpsgatan 52", "41273", "Goteborg"));
     }
 
-    // Get one customer
+
     public Customer getCustomer(String userName) {
         for (Customer customer : customers) {
             if (customer.getUsername().equals(userName)) {
@@ -32,22 +32,22 @@ public class CustomerRepo {
         return null;
     }
 
-    // get all customers
+
     public List<Customer> getCustomers() {
         return customers;
     }
 
 
-    // add a customer. Ändra om. Användare ska välja username själv.
+
     public Customer addCustomer(Customer customer) {
         Customer lastCustomer = customers.get(customers.size()-1);
-        customer.setUsername(lastCustomer.getUsername()+1); // set an id on the new customer, should be unique, will be done by the database in future exercises
+        customer.setUsername(lastCustomer.getUsername()+1);
         customers.add(customer);
         return customer;
     }
 
-    // edit a customer
-    public Customer editBook(Customer customer) {
+
+    public Customer editCustomer(Customer customer) {
         Customer customerToEdit = this.getCustomer(customer.getUsername());
         if (customerToEdit != null) {
             customerToEdit.setPassword(customer.getPassword());
@@ -62,7 +62,7 @@ public class CustomerRepo {
         return customer;
     }
 
-    // delete a customer
+
     public void deleteCustomer(String userName) {
         Customer customerToDelete = this.getCustomer(userName);
         if (customerToDelete != null) {

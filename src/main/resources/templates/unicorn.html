@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>unicorn</title>
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
-    <!-- <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p> -->
     <div th:if="${session.username} != null">
         <p th:text="'Logged in as: ' + ${session.username}"></p>
         <form th:action="@{/profile}" method="get">
@@ -64,7 +63,7 @@
     </tr>
 </table>
 
-    <!-- <button type="button">Add to cart</button>-->
+
 
 
 <form th:action="@{'/unicorn' + '?id=' + ${unicorn.id}}" method="post">

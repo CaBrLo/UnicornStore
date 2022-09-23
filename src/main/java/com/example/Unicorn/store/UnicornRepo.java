@@ -29,7 +29,7 @@ public class UnicornRepo {
         return null;
     }
 
-    // get all unicorns
+
     public List<Unicorn> getUnicorns() {
         return unicorns;
     }
@@ -39,15 +39,15 @@ public class UnicornRepo {
     }
 
 
-    // add a unicorn
+
     public Unicorn addUnicorn(Unicorn unicorn) {
         Unicorn lastUnicorn = unicorns.get(unicorns.size()-1);
-        unicorn.setId(lastUnicorn.getId()+1); // set an id on the new unicorn, should be unique, will be done by the database in future exercises
+        unicorn.setId(lastUnicorn.getId()+1);
         unicorns.add(unicorn);
         return unicorn;
     }
 
-    // edit a unicorn
+
     public Unicorn editUnicorn(Unicorn unicorn) {
         Unicorn unicornToEdit = this.getUnicorn(unicorn.getId());
         if (unicornToEdit != null) {
@@ -62,7 +62,7 @@ public class UnicornRepo {
         return unicorn;
     }
 
-    // delete a unicorn
+
     public void deleteUnicorn(Long id) {
         Unicorn unicornToDelete = this.getUnicorn(id);
         if (unicornToDelete != null) {
