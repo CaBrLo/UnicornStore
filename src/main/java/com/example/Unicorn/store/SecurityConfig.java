@@ -30,6 +30,8 @@ CustomerRepo customerRepo;
                 .antMatchers( "/unicorn").permitAll()
                 .antMatchers( "/unicornAdded").permitAll()
                 .antMatchers("/cart").hasRole("USER")
+                .antMatchers("/cart**").hasRole("USER")
+                .antMatchers("/cart/**").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/profile", "/cart").hasRole("USER")
                 .anyRequest().authenticated()

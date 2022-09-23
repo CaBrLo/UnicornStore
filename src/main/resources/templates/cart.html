@@ -12,7 +12,26 @@
 </head>
 <body>
 <h1>Cart</h1>
-<div>
+<br>
+<br>
+<form action="http://localhost:8080/unicorns">
+    <input type="submit" value="Go back" />
+</form>
+<br>
+<div class="content" th:if="${session.unicornCart} == null">
+    <div class="content" th:if="${totalAmount} == 0">
+    <p>Your cart is empty</p>
+    <br>
+    <p>Do you want to see our unicorns?</p>
+    <form action="http://localhost:8080/unicorns">
+        <input type="submit" value="Go to unicorns" />
+    </form>
+    </div>
+
+
+</div>
+<div class="content" th:if="${session.unicornCart} != null">
+    <div class="content" th:if="${totalAmount} != 0">
     <tr th:each="unicorn: ${session.unicornCart}">
         <td th:text="${unicorn.name}" />
         <td th:text="${unicorn.price}" />
@@ -24,8 +43,17 @@
          <br>
      </tr>
      <br>
+        <div th:if="${totalAmount} == null">
+            <p>Total amount: $0</p>
+        </div>
      Total amount: <p th:text="${totalAmount}"></p>
+    </div>
+    <form action="http://localhost:8080/checkout">
+        <input type="submit" value="Checkout" />
+    </form>
+    <br>
  </div>
+
  </body>
  </html>
 

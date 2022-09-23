@@ -112,7 +112,7 @@ public class UnicornController {
     }
 
     @GetMapping("/cart")
-    public String cart(HttpServletRequest request, HttpSession session, Model model) {
+    public String cart(HttpServletRequest request, HttpSession session, Model model, @RequestParam(required = false, value = "id") Long id) {
         String user = request.getRemoteUser();
         //Customer customer = customerRepo.getCustomer(user);           //den gamla versionen
         Long userId = 0L;
@@ -128,12 +128,25 @@ public class UnicornController {
         Cart cart;
         if (session.getAttribute("cart") == null) {
             cart = new Cart();
+            session.setAttribute("cart", cart);
         }
-        cart = (Cart) session.getAttribute("cart");
+        else {
+            cart = (Cart) session.getAttribute("cart");
+        }
+
+        if (cart.unicornCart.size() == 0) {
+            totalAmount = 0;
+            return "cart";
+        }
 
         for (Unicorn unicorn : cart.unicornCart) {
+            if (cart.unicornCart.size() == 0) {
+                totalAmount = 0;
+                return "cart";
+            }
             totalAmount += unicorn.getPrice();
         }
+        session.setAttribute("totalAmount", totalAmount);
         model.addAttribute("totalAmount", totalAmount);
 
         return "cart";
@@ -143,15 +156,32 @@ public class UnicornController {
     public String cartPost(HttpServletRequest request, HttpSession session, Model model, @RequestParam(value = "id") Long id) {
 
         // Johan har lagt till
-        Cart cart;
+        /*Cart cart;
         if (session.getAttribute("cart") == null) {
             cart = new Cart();
+            session.setAttribute("cart", cart);
         }
-        cart = (Cart) session.getAttribute("cart");
+        else {
+            cart = (Cart) session.getAttribute("cart");
+        }*/
+        Cart cart = (Cart) session.getAttribute("cart");
+        double totalAmount = (double)session.getAttribute("totalAmount");
+        //double totalAmount = (double) model.getAttribute("totalAmount");
         cart.deleteUnicornFromCart(id);
 
         int cartSize = (int)session.getAttribute("amount");
-        cartSize = cartSize - 1;
+        if (cart.unicornCart.size() == 0) {
+            cartSize = 0;
+            totalAmount = 0;
+        }
+        else {
+            Unicorn unicorn = unicornRepo.findById(id).orElse(null);
+            cartSize = cartSize - 1;
+            totalAmount = totalAmount - unicorn.getPrice();
+        }
+
+        session.setAttribute("totalAmount", totalAmount);
+        model.addAttribute("totalAmount", totalAmount);
         session.setAttribute("amount", cartSize);
 
 
@@ -200,6 +230,30 @@ public class UnicornController {
             }
         }
         return "profile";
+    }
+
+    @GetMapping("/checkout")
+    public String checkout(HttpSession session, Model model) {
+        double totalAmount = (double) session.getAttribute("totalAmount");
+        totalAmount = 0;
+        model.addAttribute("totalAmount", totalAmount);
+        session.setAttribute("totalAmount", totalAmount);
+        Cart cart = (Cart) session.getAttribute("cart");
+        for (int i = 0; i < cart.unicornCart.size(); i++) {
+            cart.unicornCart.remove(i);
+        }
+        /*for (Unicorn unicorn : cart.unicornCart) {
+            if (cart.unicornCart == null) {
+                break;
+            }
+            cart.unicornCart.remove(unicorn);
+        }*/
+        int cartSize = (int) session.getAttribute("amount");
+        cartSize = 0;
+        session.setAttribute("cart", cart);
+        session.setAttribute("amount", cartSize);
+
+        return "checkout";
     }
 
 

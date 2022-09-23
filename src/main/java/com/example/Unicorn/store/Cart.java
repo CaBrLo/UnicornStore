@@ -41,6 +41,11 @@ public class Cart {
     }
 
     public void deleteUnicornFromCart(Long id) {
+        //unicornCart.remove(unicorn);
+        unicornCart.removeIf(unicorn -> unicorn.getId().longValue() == id);
+    }
+    /*
+    public void deleteUnicornFromCart(Long id) {
         for (Unicorn unicorn : unicornCart) {
             if (unicorn.getId().longValue() == id) {
                 unicornCart.remove(unicorn);
@@ -49,5 +54,6 @@ public class Cart {
 
         }
     }
+     */
 
 }

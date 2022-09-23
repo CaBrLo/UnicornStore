@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
+    <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>
+    <!-- <p th:text="${'Logged in as: ' + ${session.username}"></p> -->
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+</head>
+<body>
+<br>
+
+<br>
+
+<br>
+<div class="content">
+    <h2>Thanks for your order! Hope you'll enjoy your unicorn(s)</h2>
+
+    <form action="http://localhost:8080/unicorns">
+        <input type="submit" value="Back to shop" />
+    </form>
+
+</div>
+
+</body>
+</html>
