@@ -23,6 +23,10 @@ public class Orders {
 
     }
 
+    public Orders(Customer customer){
+        this.customer = customer;
+    }
+
     public double getOrderPrice() {
         return orderPrice;
     }

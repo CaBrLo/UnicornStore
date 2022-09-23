@@ -229,11 +229,17 @@ public class UnicornController {
     }
 
     @GetMapping("/checkout")
-    public String checkout(HttpSession session, Model model) {
+    public String checkout(HttpSession session, Model model, HttpServletRequest request) {
         double totalAmount = (double) session.getAttribute("totalAmount");
 
         Cart cart = (Cart) session.getAttribute("cart");
-        Orders orders = new Orders();
+        Long id = 0L;
+        for(Customer customer : customerRepo.findAll()){
+            if(customer.getUsername().equals(request.getRemoteUser())){
+                id = customer.getId();
+            }
+        }
+        Orders orders = new Orders(customerRepo.findById(id).orElse(null));
         orders.setOrderPrice(totalAmount);
         orderRepo.save(orders);
         for (int i = 0; i < cart.unicornCart.size(); i++) {
