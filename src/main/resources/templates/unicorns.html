@@ -7,6 +7,9 @@
     <!-- <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p>-->
     <div th:if="${session.username} != null">
     <p th:text="'Logged in as: ' + ${session.username}"></p>
+        <form th:action="@{/profile}" method="get">
+            <input type="submit" value="Edit profile"/>
+        </form>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout"/>
     </form>
@@ -29,6 +32,8 @@
 
     <img class="Contact" th:src="'images/LOGO.png'">
     <br>
+    Here you can look through all of our unicorns that <br> are available at the moment.
+    If you're searching for <br>something special, don't hesitate to contact us.
     <br>
     <br>
     <br>

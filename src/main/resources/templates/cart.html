@@ -34,7 +34,7 @@
     <div class="content" th:if="${totalAmount} != 0">
     <tr th:each="unicorn: ${session.unicornCart}">
         <td th:text="${unicorn.name}" />
-        <td th:text="${unicorn.price}" />
+        <td th:text="'$' + ${unicorn.price}" />
         <!--th:object="${unicorn}"  -->
                 <form th:action="@{'/cart' + '?id=' + ${unicorn.id}}" method="post">
 
@@ -46,7 +46,12 @@
         <div th:if="${totalAmount} == null">
             <p>Total amount: $0</p>
         </div>
-     Total amount: <p th:text="${totalAmount}"></p>
+        <div th:if="${totalAmount} != null">
+     Total amount: <p th:text="'$' + ${totalAmount}"></p>
+        </div>
+        <div th:if="${totalAmount} == null">
+            Cart is empty..
+        </div>
     </div>
     <form action="http://localhost:8080/checkout">
         <input type="submit" value="Checkout" />

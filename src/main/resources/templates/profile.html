@@ -11,21 +11,42 @@
      </form>
  </head>
  <body>
+ <form action="http://localhost:8080/unicorns">
+     <input type="submit" value="Go to shop" />
+ </form>
+ <div class="content">
  <h1 th:text="'Hello ' + ${session.username}"></h1>
 
- <div>
+         <form action="/profile" th:object="${customer}" method="post">
+             First name: <input type="text" th:field="*{firstName}"><br><br><br>
+             Last name: <input type="text" th:field="*{lastName}"><br><br><br>
+             Address: <input type="text" th:field="*{address}"><br><br><br>
+             Zip code: <input type="text" th:field="*{zipCode}"><br><br><br>
+             City: <input type="text" th:field="*{city}"><br><br><br>
+
+
+             <input type="hidden" th:field="*{id}">
+
+
+             <input type="submit" value="Save">
+         </form>
+
+
+
+ <!-- <div>
      <form th:action="@{/saveProfile}" method="post">
 
-         Username: <input type="text" name="username">
-         First name: <input type="text" name="firstName">
-         Last name: <input type="text" name="lastName">
-         Address: <input type="text" name="address">
-         Zip code: <input type="text" name="zipCode">
-         City: <input type="text" name="city">
 
-         <input type="submit" value="save">
+         First name: <input type="text" name="firstName"><br><br><br>
+         Last name: <input type="text" name="lastName"><br><br><br>
+         Address: <input type="text" name="address"><br><br><br>
+         Zip code: <input type="text" name="zipCode"><br><br><br>
+         City: <input type="text" name="city"><br><br><br>
+
+         <input type="submit" value="Save">
      </form>
 
+ </div> -->
  </div>
  </body>
  </html>

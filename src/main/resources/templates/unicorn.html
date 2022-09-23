@@ -7,6 +7,9 @@
     <!-- <p th:text="${'Logged in as: ' + #httpServletRequest.remoteUser}"></p> -->
     <div th:if="${session.username} != null">
         <p th:text="'Logged in as: ' + ${session.username}"></p>
+        <form th:action="@{/profile}" method="get">
+            <input type="submit" value="Edit profile"/>
+        </form>
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Logout"/>
         </form>
@@ -36,28 +39,28 @@
 
 <table>
     <tr>
-        <th>Name</th>
+        <th>Name: </th>
         <th th:text="${unicorn.name}"></th>
     </tr>
     <tr>
-        <th>Age</th>
+        <th>Age: </th>
         <th th:text="${unicorn.age}"></th>
     </tr>
     <tr>
-        <th>Price</th>
+        <th>Price: </th>
         <th th:text="'$' + ${unicorn.price}"></th>
     </tr>
     <tr>
-        <th>Color</th>
+        <th>Color: </th>
         <th th:text="${unicorn.color}"></th>
     </tr>
     <tr>
-        <th>isHorn</th>
-        <th th:text="${unicorn.isHorn}"></th>
+        <th></th>
+        <th th:text="${unicorn.isHorn} ? ${unicorn.name} + ' has a horn.' : ${unicorn.name} + ' does not have a horn.' "></th>
     </tr>
     <tr>
-        <th>canFly</th>
-        <th th:text="${unicorn.isFlyAble}"></th>
+        <th></th>
+        <th th:text="${unicorn.isFlyAble} ? ${unicorn.name} + ' can fly.' : ${unicorn.name} + ' cannot fly.' "></th>
     </tr>
 </table>
 

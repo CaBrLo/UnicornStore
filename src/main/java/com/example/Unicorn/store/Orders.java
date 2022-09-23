@@ -2,21 +2,34 @@ package com.example.Unicorn.store;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderNumber;
-   // @OneToOne
+    @OneToOne
     private Customer customer;
+
+    private double orderPrice;
 //    @OneToMany
-    private Unicorn unicorn;
+    //private Unicorn unicorn;
+
+    public Orders() {
+    }
 
     public Orders(Long orderNumber, Customer customer, Unicorn unicorn) {
         this.orderNumber = orderNumber;
         this.customer = customer;
-        this.unicorn = unicorn;
+        //this.unicorn = unicorn;
+    }
+
+    public double getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(double orderPrice) {
+        this.orderPrice = orderPrice;
     }
 
     public Long getOrderNumber() {
@@ -35,11 +48,5 @@ public class Orders {
         this.customer = customer;
     }
 
-    public Unicorn getUnicorn() {
-        return unicorn;
-    }
 
-    public void setUnicorn(Unicorn unicorn) {
-        this.unicorn = unicorn;
-    }
 }

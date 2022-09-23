@@ -15,6 +15,8 @@ public class Customer {
     private String address;
     private String zipCode;
     private String city;
+    @OneToOne
+    private Orders orders;
    /* @OneToOne
     private Cart cart;*/
 

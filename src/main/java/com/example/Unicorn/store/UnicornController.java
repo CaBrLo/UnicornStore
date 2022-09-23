@@ -3,10 +3,7 @@ package com.example.Unicorn.store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServlet;
@@ -29,6 +26,9 @@ public class UnicornController {
 
     @Autowired
     private UnicornRepository unicornRepo;
+
+    @Autowired
+    private OrderRepository orderRepo;
 
     /*@Autowired
     private Cart cart;
@@ -216,29 +216,47 @@ public class UnicornController {
 
 
     @GetMapping("/profile")
-    public String profile(HttpSession session, HttpServletRequest request) {
+    public String profile(HttpSession session, HttpServletRequest request, Model model) {
         String username = request.getRemoteUser();
         //for (Customer customer : customerRepo.getCustomers()) {               //den gamla versionen
         for (Customer customer : customerRepo.findAll()) {
             if (customer.getUsername().equals(username)) {
+                model.addAttribute("customer", customer);
                 session.setAttribute("username", customer.getUsername());
+                session.setAttribute("password", customer.getPassword());
+                session.setAttribute("email", customer.getEmail());
+
+                /*session.setAttribute("username", customer.getUsername());
                 session.setAttribute("firstname", customer.getFirstName());
                 session.setAttribute("lastname", customer.getLastName());
                 session.setAttribute("address", customer.getAddress());
                 session.setAttribute("zipCode", customer.getZipCode());
-                session.setAttribute("city", customer.getCity());
+                session.setAttribute("city", customer.getCity());*/
             }
         }
         return "profile";
     }
 
+    @PostMapping("/profile")
+    public String profilePost(@ModelAttribute Customer customer, HttpSession session) {
+        customer.setUsername((String)session.getAttribute("username"));
+        customer.setPassword((String)session.getAttribute("password"));
+        customer.setEmail((String)session.getAttribute("email"));
+
+        customerRepo.save(customer);
+
+
+        return "redirect:/unicorns";
+    }
+
     @GetMapping("/checkout")
     public String checkout(HttpSession session, Model model) {
         double totalAmount = (double) session.getAttribute("totalAmount");
-        totalAmount = 0;
-        model.addAttribute("totalAmount", totalAmount);
-        session.setAttribute("totalAmount", totalAmount);
+
         Cart cart = (Cart) session.getAttribute("cart");
+        Orders orders = new Orders();
+        orders.setOrderPrice(totalAmount);
+        orderRepo.save(orders);
         for (int i = 0; i < cart.unicornCart.size(); i++) {
             cart.unicornCart.remove(i);
         }
@@ -250,6 +268,9 @@ public class UnicornController {
         }*/
         int cartSize = (int) session.getAttribute("amount");
         cartSize = 0;
+        totalAmount = 0;
+        model.addAttribute("totalAmount", totalAmount);
+        session.setAttribute("totalAmount", totalAmount);
         session.setAttribute("cart", cart);
         session.setAttribute("amount", cartSize);
 

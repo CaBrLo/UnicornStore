@@ -17,19 +17,27 @@ import javax.servlet.http.HttpSession;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @Autowired
 CustomerRepo customerRepo;
+    //@Autowired
+    //CustomerRepository customerRepo;
 @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/unicorns").permitAll()
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/style.css").permitAll()
+                .antMatchers("../data.sql").permitAll()
                 // images/**
                 //.antMatchers( "/unicorn/{id}").permitAll()
+
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers( "/unicorn").permitAll()
                 .antMatchers( "/unicornAdded").permitAll()
+                .antMatchers("/h2/**").permitAll()
+                .antMatchers("h2/login.do?jsessionid=**").hasRole("USER")
                 .antMatchers("/cart").hasRole("USER")
+                .antMatchers("/profile**").hasRole("USER")
                 .antMatchers("/cart**").hasRole("USER")
                 .antMatchers("/cart/**").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
@@ -43,7 +51,8 @@ CustomerRepo customerRepo;
     @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        for (Customer user: customerRepo.getCustomers()){
+        //for (Customer user: customerRepo.getCustomers()){
+        for (Customer user : customerRepo.getCustomers()) {
             manager.createUser(User.withDefaultPasswordEncoder().username(user.getUsername()).password(user.getPassword()).roles("USER").build());
         }
 
